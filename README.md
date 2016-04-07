@@ -14,3 +14,9 @@ Add this url to your board manager https://teenyriot.github.io/TeenyRiot/package
 
 # Making Boards
 
+
+# Re-programming other functionalities (and co-developing new applications)
+
+
+
+
