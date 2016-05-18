@@ -22,6 +22,10 @@ The easy instruction should go to the github wiki
 
 # Making Boards
 
+There are many ways to make this board! Just start soldering on a proto-board or design/etch your own circuits.
+We made some PCB designs for manufacturing and smd soldering, aswell as simple one-sided boards to make in the Majority of the world locally. Check the folder of the PCB to download the pdfs.
+
+![Evolution of the Coconut](https://raw.githubusercontent.com/CocoMake7/Getting-Started/master/photos/boards_variants/Evolution_of_coconuts.jpg)
 
 # Re-programming other functionalities (and co-developing new applications)
 
