@@ -8,9 +8,11 @@ Add this url to your board manager https://teenyriot.github.io/TeenyRiot/package
 
 The easy instruction should go to the github wiki
 
-# The Circuit
+# The Circuit Schematic
 
-![MrBaladuino ONE schematic](https://raw.githubusercontent.com/CocoMake7/Getting-Started/master/photos/PCB-Masks%20and%20Schematics/Selection_942.png)
+![MrBaladuino ONE Schematic](https://raw.githubusercontent.com/CocoMake7/Getting-Started/master/photos/PCB-Masks%20and%20Schematics/MrBaladuinoONE_Schematic.png)
+
+![Fritzing schematic](https://raw.githubusercontent.com/CocoMake7/Getting-Started/master/photos/PCB-Masks%20and%20Schematics/Selection_942.png)
 
 # The Bootloader
 
