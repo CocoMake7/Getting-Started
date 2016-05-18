@@ -27,6 +27,18 @@ We made some PCB designs for manufacturing and smd soldering, aswell as simple o
 
 ![Evolution of the Coconut](https://raw.githubusercontent.com/CocoMake7/Getting-Started/master/photos/boards_variants/Evolution_of_coconuts.jpg)
 
+BOM:
+* 2 x 68 Ohm Resistor
+* 1 * 1.5 kOhm Resistor
+* 1 * 1 kOhm Resistor
+* 1 * 220 Ohm Resistor
+* 1 * 100 nF Capacitor
+* 2 * 3.3V Zener Diode
+* 1 * Attiny85
+* 1 * USB Connector
+* 2 * LED (different colors)
+
+
 # Re-programming other functionalities (and co-developing new applications)
 
 
