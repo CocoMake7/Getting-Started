@@ -14,13 +14,8 @@ https://github.com/CocoMake7/Getting-Started/raw/master/Code/CocoMake7_ONE_Keybo
 
 # Make Your Own Boards
 
-![MrBaladuino Balastyle](https://raw.githubusercontent.com/CocoMake7/Getting-Started/master/photos/boards_variants/MrBaladuino_BalaStyle.jpg)
-
 ![MrBaladuino ONE DIL-Version](https://raw.githubusercontent.com/CocoMake7/Getting-Started/master/photos/boards_variants/MrBaladuino_DIL-version.jpg)
 
-![MrBaladuino ONE DIL-Version](https://raw.githubusercontent.com/CocoMake7/Getting-Started/master/photos/boards_variants/CocoMake1-ONE.jpg)
-
-![MrBaladuino ONE DIL-Version](https://raw.githubusercontent.com/CocoMake7/Getting-Started/master/photos/boards_variants/CocoAttadu.png)
 
 
 
