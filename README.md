@@ -10,7 +10,7 @@ The easy instruction are on this github wiki (https://github.com/CocoMake7/Getti
 
 # Download the example code
 
-https://github.com/CocoMake7/Getting-Started/blob/master/Code/CocoMake7_ONE_Keyboard.zip
+https://github.com/CocoMake7/Getting-Started/raw/master/Code/CocoMake7_ONE_Keyboard.zip
 
 
 
