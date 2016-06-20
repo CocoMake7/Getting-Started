@@ -1,0 +1,19 @@
+# udev rules for Cocomake7
+#
+# Copy this file to the location of your distribution's udev rules, for example on Ubuntu:
+#   sudo cp cocomake7.rules /etc/udev/rules.d/
+# Then reload udev configuration by executing:
+#   sudo reload udev
+# Or if that doesn't work try:
+#   sudo udevadm control --reload-rules
+#   sudo udevadm trigger
+# maybe also try
+#   sudo gpasswd -a your_username dialout
+# or worst case reboot your system
+
+# Rule to make CocoMake7 programmable without running Arduino as root.
+# Tested with Ubuntu 16.04 others.  Other distributions might need to update GROUP="dialout"
+# to another group value like "users" or "uucp" (arch linux).
+
+SUBSYSTEM=="usb", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="05dc", GROUP="dialout"
+
