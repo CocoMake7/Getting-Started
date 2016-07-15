@@ -117,6 +117,7 @@ void loop()
               }
               
             TeenyMidi.send(MIDI_NOTEON,0, filtered_value);
+            //TeenyMidi.sendCC(filtered_value,1);
             //TeenyMidi.sendCCHires(filtered_value, (4*0)+1);
             //TeenyMidi.sendCCHires(value[0], (4*0)+1);
 

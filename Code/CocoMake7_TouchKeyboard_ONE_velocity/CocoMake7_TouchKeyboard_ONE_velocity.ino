@@ -1,6 +1,5 @@
 #define USE_KEYBOARD
 #define USE_VELO
-
 #ifdef USE_MIDI
 #include <TeenyMidi.h>
 MIDIMessage midimsg;
@@ -12,7 +11,7 @@ MIDIMessage midimsg;
 
 
 #include "TeenyTouchDusjagr.h"
-#include "SampleFilter.h"
+#include "SampleFilter.h"COC
 
 char key[] = {'C','O','C','O','M','A','K','E','7',' ','O','N','E','!',' '};
 int keyTotal = 15;
@@ -47,7 +46,7 @@ uint8_t multiplexer_mapping[8]  = {6,7,4,4,3,0,1,2}; //remap multiplexer pin
 unsigned long previousMillis = 0;        // will store last time LED was updated
 int keyCount = -1;
 int ledPin = PB0;
-int velocityThreshold = 40;
+int velocityThreshold = 80;
 
 #define PIN_SELECT 0
 #define NUM_CHANNEL 3

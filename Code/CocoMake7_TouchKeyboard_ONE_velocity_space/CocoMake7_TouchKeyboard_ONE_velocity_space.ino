@@ -1,6 +1,5 @@
 #define USE_KEYBOARD
 #define USE_VELO
-
 #ifdef USE_MIDI
 #include <TeenyMidi.h>
 MIDIMessage midimsg;
@@ -10,12 +9,12 @@ MIDIMessage midimsg;
 #include <TeenyKeyboard.h>
 #endif
 
-
 #include "TeenyTouchDusjagr.h"
-#include "AnalogTouch.h"
-#include "SampleFilter.h"
+#include "SampleFilter.h"COC
 
-char key[] = {'I','Y','O','K','K','K','K','K','O','O','O','O','O'};
+//char key[] = {'C','O','C','O','M','A','K','E','7',' ','O','N','E','!',' '};
+char key[] = {' '};
+int keyTotal = 1;
 
 //TeenyTouchDusjagr test2;
 // ATMEL ATTINY85
@@ -35,6 +34,7 @@ int value[8] = {0,0,0,0,0,0,0,0};
 #ifdef USE_VELO
 int prevValue[8] = {0,0,0,0,0,0,0,0};
 int velocityValue[8] = {0,0,0,0,0,0,0,0};
+int prevVelocity[8] =  {0,0,0,0,0,0,0,0};
 #endif
 
 uint8_t note_off[8] = {1,1,1,1,1,1,1,1};
@@ -44,7 +44,9 @@ int filtered_value = 0;
 uint8_t pin_queue = 0;
 uint8_t multiplexer_mapping[8]  = {6,7,4,4,3,0,1,2}; //remap multiplexer pin
 unsigned long previousMillis = 0;        // will store last time LED was updated
-
+int keyCount = -1;
+int ledPin = PB0;
+int velocityThreshold = 80;
 
 #define PIN_SELECT 0
 #define NUM_CHANNEL 3
@@ -67,6 +69,15 @@ void setup()
 
 #ifdef USE_KEYBOARD
     TeenyKeyboard.update();
+    pinMode(ledPin, OUTPUT);
+    digitalWrite(ledPin, HIGH); 
+    TeenyKeyboard.delay(100);        
+    digitalWrite(ledPin, LOW); 
+    TeenyKeyboard.delay(100); 
+    digitalWrite(ledPin, HIGH); 
+    TeenyKeyboard.delay(100);         
+    digitalWrite(ledPin, LOW); 
+    TeenyKeyboard.delay(100);
 #endif
 
 
@@ -80,56 +91,62 @@ void setup()
 
 #ifdef USE_MIDI
     TeenyMidi.delay(100);
+    pinMode(ledPin, OUTPUT);
+    digitalWrite(ledPin, HIGH); 
+    TeenyMidi.delay(100);        
+    digitalWrite(ledPin, LOW); 
+    TeenyMidi.delay(100); 
+    digitalWrite(ledPin, HIGH); 
+    TeenyMidi.delay(100);         
+    digitalWrite(ledPin, LOW); 
+    TeenyMidi.delay(100);
 #endif
 
 
-}
 
+
+}
 
 void loop()
 {
 
     if (millis()-previousMillis >= 5)     // 0% data loss
         {
-            //TeenyMidi.sendCCHires(value, 1);
             filtered_value = SampleFilter_get(&filter_samp[0]);
-
-            //velocityValue[0] = filtered_value - prevValue[0];
-            //prevValue[0] = filtered_value;
-
-            //TeenyMidi.sendCCHires(filtered_value, (4*0)+1);
-            //TeenyMidi.sendCCHires(value[0], (4*0)+1);
-
-            if (filtered_value >= 100)
-                {
+            velocityValue[0] = filtered_value - prevValue[0]+500;
+            prevValue[0] = filtered_value;
+                        
+            if (velocityValue[0]  >= 500 + velocityThreshold && prevVelocity[0] <= 500 + velocityThreshold)
+                {digitalWrite(ledPin, HIGH);
                     if (note_off[0] == 1)
                         {
 #ifdef USE_MIDI
-                            TeenyMidi.send(MIDI_NOTEON,i, 127 );
+                           // TeenyMidi.send(MIDI_NOTEON,0, filtered_value );
 #endif
-#ifdef USE_KEYBOARD
-                            TeenyKeyboard.print(key[0]);
-#endif
-                            note_off[0] = 0;
-                        }
-                }
-            else
-                {
-                    if (note_off[0] == 0)
-                        {
-#ifdef USE_MIDI
-                            //TeenyMidi.send(MIDI_NOTEOFF,i,127);
-#endif
-                            note_off[0] = 1;
-                        }
-                }
 
+#ifdef USE_KEYBOARD
+                keyCount++;
+                if (keyCount == keyTotal) 
+                  {keyCount = 0;}
+                TeenyKeyboard.print(key[keyCount]);
+#endif
+                        note_off[0] = 0;
+                        }
+                }
+            if (velocityValue[0]  <= 500 - velocityThreshold)
+              {digitalWrite(ledPin, HIGH);}
+            else
+              {digitalWrite(ledPin, LOW);
+                 if (note_off[0] == 0) 
+                   {note_off[0] = 1;}
+               }
             previousMillis = millis();
         }
 
 
     value[0] = TeenyTouchDusjagr.sense(ADC_SENSE_PIN,ADC_REF_PIN, 7 ) - offset_adc[0];
     if (value[0] > 0) SampleFilter_put(&filter_samp[0], value[0]);
+    
 #ifdef USE_MIDI
     TeenyMidi.update();
 #endif
@@ -139,13 +156,10 @@ void loop()
 #endif
 
 #ifdef USE_KEYBOARD
-    //TeenyKeyboard.update();
     TeenyKeyboard.delay(1);
 #endif
 
-
-//velocityValue[0] = value[0]-prevValue[0];
-//prevValue[0] = value[0];
-
+prevVelocity[0] = velocityValue[0];
 
 }
+

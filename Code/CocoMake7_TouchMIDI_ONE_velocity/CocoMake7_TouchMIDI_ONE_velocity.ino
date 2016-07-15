@@ -115,9 +115,9 @@ void loop()
               }
               
             //TeenyMidi.send(MIDI_NOTEON,0, filtered_value);
-            //TeenyMidi.sendCCHires(filtered_value, (4*0)+1);
+            TeenyMidi.sendCCHires(filtered_value, (4*1)+1);
             TeenyMidi.sendCCHires(velocityValue[0]+500, (4*0)+1);
-            //TeenyMidi.sendCCHires(value[0], (4*0)+1);
+            TeenyMidi.sendCCHires(value[0], (4*2)+1);
 
             if (filtered_value >= 10)
                 { 
