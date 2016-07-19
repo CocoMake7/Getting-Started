@@ -6,7 +6,7 @@ MIDIMessage midimsg;
 #endif
 
 #ifdef USE_KEYBOARD
-#include <TeenyKeyboard.h>
+#include "CocoKeyboard.h"
 #endif
 
 #include "TeenyTouchDusjagr.h"
@@ -68,16 +68,16 @@ void setup()
 #endif
 
 #ifdef USE_KEYBOARD
-    TeenyKeyboard.update();
+    CocoKeyboard.update();
     pinMode(ledPin, OUTPUT);
     digitalWrite(ledPin, HIGH); 
-    TeenyKeyboard.delay(100);        
+    CocoKeyboard.delay(100);        
     digitalWrite(ledPin, LOW); 
-    TeenyKeyboard.delay(100); 
+    CocoKeyboard.delay(100); 
     digitalWrite(ledPin, HIGH); 
-    TeenyKeyboard.delay(100);         
+    CocoKeyboard.delay(100);         
     digitalWrite(ledPin, LOW); 
-    TeenyKeyboard.delay(100);
+    CocoKeyboard.delay(100);
 #endif
 
 
@@ -128,7 +128,7 @@ void loop()
                 keyCount++;
                 if (keyCount == keyTotal) 
                   {keyCount = 0;}
-                TeenyKeyboard.print(key[keyCount]);
+                CocoKeyboard.print(key[keyCount]);
 #endif
                         note_off[0] = 0;
                         }
@@ -156,7 +156,7 @@ void loop()
 #endif
 
 #ifdef USE_KEYBOARD
-    TeenyKeyboard.delay(1);
+    CocoKeyboard.delay(1);
 #endif
 
 prevVelocity[0] = velocityValue[0];
