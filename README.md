@@ -1,4 +1,14 @@
-# Getting-Started (for co-developers)
+# Getting Started with the CocoMake7
+
+go through the instructions here: https://cocomake7.github.io/
+
+Add CocoMake7 board to Arduino IDE
+
+Copy this link below into your arduino Preferences -> Additional Board Manager URLs
+
+https://cocomake7.github.io/CocoMake7/package_cocomake7_index.json
+
+# (Join co-developers of Teeny and Babygnusbuino 2000)
 
 To install the board check our developer repository: https://github.com/TeenyRiot
 
