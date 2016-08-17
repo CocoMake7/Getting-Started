@@ -10,7 +10,7 @@ MIDIMessage midimsg;
 #endif
 
 #include <CocoTouch.h>
-#include "CocoTouchFilterSetting.h"
+#include <CocoTouchFilterSettingDefault.h>
     
 //char key[] = {'C','O','C','O','M','A','K','E','7',' ','O','N','E','!',' '};
 char key[] = {' '};
@@ -161,4 +161,3 @@ void loop()
 prevVelocity[0] = velocityValue[0];
 
 }
-
