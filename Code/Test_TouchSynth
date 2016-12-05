@@ -1,0 +1,133 @@
+#include <CocoSynth.h>
+#include <CocoTouch.h>
+#include <CocoTouchFilterSettingDefault.h>
+
+int mova_filtered;
+
+CocoSynth synth;
+
+//disable millis
+//make timer available for CocoSynth
+int main(void)
+{
+    //init();
+    setup();
+    for (;;)
+        loop();
+    return 0;
+}
+int get_moving_average(int value, float constant, int * accumulator)
+{
+*accumulator = (constant*value) + ((1-constant)* (*accumulator) );
+  return *accumulator;
+}
+int coco_mova_1_accumulator;
+#define state_down 0
+#define state_up 1
+#define state_flat 2
+
+
+float default_currValue = 0;
+float default_prevValue = 0;
+int default_currState = 0;
+int default_prevState = state_flat;
+
+//filter settings
+CocoTouchFilterSetting CocoFilter;
+
+int value = 0;
+int prevValue = 0;
+int velocityValue = 0;
+int prevVelocity =  0;
+
+uint16_t offset_adc = 0;
+
+unsigned long previousMillis = 0; // will store last time LED was updated
+
+int velocityThreshold = 20;
+
+int filtered_value = 0;
+uint8_t pin_queue = 0;
+
+//cocoTouch pin
+#define ADC_REF_PIN PB2
+#define ADC_SENSE_PIN PB4
+
+void usb_poll()
+{
+//  usbPoll();
+} 
+
+int mathRandomInt(int min, int max) {
+  if (min > max) {
+    // Swap min and max to ensure min is smaller.
+    int temp = min;
+    min = max;
+    max = temp;
+  }
+  return min + (rand() % (max - min + 1));
+}
+
+
+void setup() {
+  synth.begin();
+
+
+CocoTouch.begin();
+CocoTouch.setAdcSpeed(4);
+CocoTouch.delay = 4;
+//TeenyTouchDusjagr.delay_cb = &delay;
+CocoTouch.usb_poll = &usb_poll;
+offset_adc = CocoTouch.sense(ADC_SENSE_PIN, ADC_REF_PIN, 8 );
+
+
+  // Connect your speaker to pin 5
+  // Sine wave instrument
+  synth.setupVoice(0,SQUARE,64,ENVELOPE0,60,130);
+  synth.setupVoice(1,NOISE,64,ENVELOPE0,70,60);
+
+}
+
+void loop() {
+
+  if (synth.millis() - previousMillis >= 5)   // 0% data loss
+  {
+    filtered_value = CocoTouchFilter_get(&CocoFilter);
+    velocityValue = filtered_value - prevValue + 500;
+    prevValue = filtered_value;
+
+    mova_filtered = (get_moving_average(filtered_value,0.2, &coco_mova_1_accumulator));
+
+    //peak detector code for default
+    default_currValue = mova_filtered;
+     if (default_currValue > 0) {
+       if (default_currValue > default_prevValue) {
+         default_currState = state_up;
+       }else if (default_currValue < default_prevValue) {
+         default_currState = state_down;
+       }else{
+         default_currState = state_flat;
+       }
+       if ( default_currState == state_down && default_prevState == state_up)
+       {
+           if (default_currValue > 30 && default_currValue < 140) {
+        synth.mTrigger(0,default_currValue/2);
+        }
+          if (default_currValue > 140) {
+        synth.mTrigger(1, default_currValue*0.8);
+        }
+      }
+
+       
+       default_prevState = default_currState;
+       default_prevValue = default_currValue;
+     }
+
+    previousMillis = synth.millis();
+  }
+
+  value = CocoTouch.sense(ADC_SENSE_PIN, ADC_REF_PIN, 7 ) - offset_adc;
+  if (value > 0) CocoTouchFilter_put(&CocoFilter, value);
+  prevVelocity = velocityValue;
+
+}
