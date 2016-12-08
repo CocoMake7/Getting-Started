@@ -21,14 +21,3 @@ https://github.com/CocoMake7/Getting-Started/tree/master/Code/CocoMake7_TouchKey
 # Make Your Own Boards
 
 ![MrBaladuino ONE DIL-Version](https://raw.githubusercontent.com/CocoMake7/Getting-Started/master/photos/boards_variants/MrBaladuino_DIL-version.jpg)
-
-# (Join co-developers of Teeny and Babygnusbuino 2000)
-
-To install the board check our developer repository: https://github.com/TeenyRiot
-
-Add this url to your board manager https://teenyriot.github.io/TeenyRiot/package_teenyriot_index.json
-
-
-
-
-
